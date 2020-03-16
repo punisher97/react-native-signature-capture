@@ -1,0 +1,33 @@
+From 16a74013543141b79f691e09332783d54f4a4979 Mon Sep 17 00:00:00 2001
+From: ClaudiuSchuster <info@x0e.de>
+Date: Thu, 14 Nov 2019 10:34:15 +0100
+Subject: [PATCH] Fix Issue #198;
+ UIManager.getViewManagerConfig('RSSignatureView').Commands not longer
+ supportet
+
+---
+ SignatureCapture.js | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/SignatureCapture.js b/SignatureCapture.js
+index e5495fa..4a903f9 100644
+--- a/SignatureCapture.js
++++ b/SignatureCapture.js
+@@ -74,7 +74,7 @@ class SignatureCapture extends React.Component {
+     saveImage() {
+         UIManager.dispatchViewManagerCommand(
+             ReactNative.findNodeHandle(this),
+-            UIManager.getViewManagerConfig('RSSignatureView').Commands.saveImage,
++            UIManager.RSSignatureView.Commands.saveImage,
+             [],
+         );
+     }
+@@ -82,7 +82,7 @@ class SignatureCapture extends React.Component {
+     resetImage() {
+         UIManager.dispatchViewManagerCommand(
+             ReactNative.findNodeHandle(this),
+-            UIManager.getViewManagerConfig('RSSignatureView').Commands.resetImage,
++            UIManager.RSSignatureView.Commands.resetImage,
+             [],
+         );
+     }

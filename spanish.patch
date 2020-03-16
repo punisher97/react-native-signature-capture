@@ -1,0 +1,71 @@
+From 9b72e19b1ccfa8355867ce981fe40c1984a80832 Mon Sep 17 00:00:00 2001
+From: euc4 <rafael.ce@eucledian.com>
+Date: Tue, 28 Jan 2020 18:53:11 -0600
+Subject: [PATCH] quick patch to spanish
+
+---
+ .../rssignaturecapture/RSSignatureCaptureMainView.java    | 8 ++++----
+ ios/RSSignatureView.m                                     | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+index 3dff8bc..8286399 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+@@ -104,12 +104,12 @@ private LinearLayout buttonsLayout() {
+     linearLayout.setBackgroundColor(Color.WHITE);
+ 
+     // set texts, tags and OnClickListener
+-    saveBtn.setText("Save");
+-    saveBtn.setTag("Save");
++    saveBtn.setText("Guardar");
++    saveBtn.setTag("Guardar");
+     saveBtn.setOnClickListener(this);
+ 
+-    clearBtn.setText("Reset");
+-    clearBtn.setTag("Reset");
++    clearBtn.setText("Borrar");
++    clearBtn.setTag("Borrar");
+     clearBtn.setOnClickListener(this);
+ 
+     linearLayout.addView(saveBtn);
+diff --git a/ios/RSSignatureView.m b/ios/RSSignatureView.m
+index 27b735d..ef56f26 100644
+--- a/ios/RSSignatureView.m
++++ b/ios/RSSignatureView.m
+@@ -89,7 +89,7 @@ - (void)layoutSubviews
+ 				[saveButton setLineBreakMode:NSLineBreakByClipping];
+ 				[saveButton addTarget:self action:@selector(onSaveButtonPressed)
+ 				            forControlEvents:UIControlEventTouchUpInside];
+-				[saveButton setTitle:@"Save" forState:UIControlStateNormal];
++				[saveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+ 
+ 				CGSize buttonSize = CGSizeMake(80, 55.0);
+ 
+@@ -104,7 +104,7 @@ - (void)layoutSubviews
+ 				[clearButton setLineBreakMode:NSLineBreakByClipping];
+ 				[clearButton addTarget:self action:@selector(onClearButtonPressed)
+ 				             forControlEvents:UIControlEventTouchUpInside];
+-				[clearButton setTitle:@"Reset" forState:UIControlStateNormal];
++				[clearButton setTitle:@"Borrar" forState:UIControlStateNormal];
+ 
+ 				clearButton.frame = CGRectMake(0, 0, buttonSize.width, buttonSize.height);
+ 				[clearButton setBackgroundColor:[UIColor colorWithRed:250/255.f green:250/255.f blue:250/255.f alpha:1.f]];
+@@ -131,7 +131,7 @@ - (void)layoutSubviews
+ 				[saveButton setLineBreakMode:NSLineBreakByClipping];
+ 				[saveButton addTarget:self action:@selector(onSaveButtonPressed)
+ 				            forControlEvents:UIControlEventTouchUpInside];
+-				[saveButton setTitle:@"Save" forState:UIControlStateNormal];
++				[saveButton setTitle:@"Guardar" forState:UIControlStateNormal];
+ 
+ 				CGSize buttonSize = CGSizeMake(55, 80.0); //Width/Height is swapped
+ 
+@@ -145,7 +145,7 @@ - (void)layoutSubviews
+ 				[clearButton setLineBreakMode:NSLineBreakByClipping];
+ 				[clearButton addTarget:self action:@selector(onClearButtonPressed)
+ 				             forControlEvents:UIControlEventTouchUpInside];
+-				[clearButton setTitle:@"Reset" forState:UIControlStateNormal];
++				[clearButton setTitle:@"Borrar" forState:UIControlStateNormal];
+ 
+ 				clearButton.frame = CGRectMake(sign.bounds.size.width - buttonSize.width, 0, buttonSize.width, buttonSize.height);
+ 				[clearButton setBackgroundColor:[UIColor colorWithRed:250/255.f green:250/255.f blue:250/255.f alpha:1.f]];

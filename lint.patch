@@ -1,0 +1,28 @@
+From d9c17f6d89b0b7f9ca495693b3e86f11c3cf9431 Mon Sep 17 00:00:00 2001
+From: Salvador <45272829+salvariable@users.noreply.github.com>
+Date: Thu, 15 Aug 2019 19:01:36 -0500
+Subject: [PATCH] Add lintOptions to prevent crash at gradlew check
+
+---
+ android/build.gradle | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/android/build.gradle b/android/build.gradle
+index 1383db5..90f4f87 100644
+--- a/android/build.gradle
++++ b/android/build.gradle
+@@ -17,9 +17,12 @@ android {
+             abiFilters "armeabi-v7a", "x86"
+         }
+     }
++    lintOptions {
++        abortOnError false
++    }
+ }
+ 
+ dependencies {
+     implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '23.0.0')}"
+     implementation "com.facebook.react:react-native:+"
+-}
+\ No newline at end of file
++}

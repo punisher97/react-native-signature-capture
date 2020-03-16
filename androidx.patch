@@ -1,0 +1,79 @@
+From 1b7164d0c03f728487dce542ca71fdc7bd9c2141 Mon Sep 17 00:00:00 2001
+From: Rajat Gupta <you@example.com>
+Date: Mon, 24 Feb 2020 15:41:06 +0530
+Subject: [PATCH] upgraded it to androidx
+
+---
+ android/android.iml       | 12 +++++-------
+ android/build.gradle      | 10 +++++-----
+ android/gradle.properties |  2 ++
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+ create mode 100644 android/gradle.properties
+
+diff --git a/android/android.iml b/android/android.iml
+index 76d7bb0..823591e 100644
+--- a/android/android.iml
++++ b/android/android.iml
+@@ -1,18 +1,16 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+-<module external.system.id="GRADLE" type="JAVA_MODULE" version="4">
++<module external.linked.project.id=":" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+   <component name="FacetManager">
+     <facet type="android-gradle" name="Android-Gradle">
+       <configuration>
+         <option name="GRADLE_PROJECT_PATH" value=":" />
+-      </configuration>
+-    </facet>
+-    <facet type="android" name="Android">
+-      <configuration>
+-        <option name="ALLOW_USER_CONFIGURATION" value="false" />
++        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
++        <option name="LAST_KNOWN_AGP_VERSION" />
+       </configuration>
+     </facet>
+   </component>
+-  <component name="NewModuleRootManager" inherit-compiler-output="false">
++  <component name="NewModuleRootManager" inherit-compiler-output="true">
++    <exclude-output />
+     <content url="file://$MODULE_DIR$" />
+     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+diff --git a/android/build.gradle b/android/build.gradle
+index 1383db5..ba2ea9b 100644
+--- a/android/build.gradle
++++ b/android/build.gradle
+@@ -5,12 +5,12 @@ def safeExtGet(prop, fallback) {
+ apply plugin: 'com.android.library'
+ 
+ android {
+-    compileSdkVersion safeExtGet('compileSdkVersion', 23)
+-    buildToolsVersion safeExtGet('buildToolsVersion', "23.0.1")
++    compileSdkVersion safeExtGet('compileSdkVersion', 28)
++    buildToolsVersion safeExtGet('buildToolsVersion', "28.0.3")
+ 
+     defaultConfig {
+-        minSdkVersion safeExtGet('minSdkVersion', 16)
+-        targetSdkVersion safeExtGet('targetSdkVersion', 22)
++        minSdkVersion safeExtGet('minSdkVersion', 19)
++        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+         versionCode 1
+         versionName "1.0"
+         ndk {
+@@ -20,6 +20,6 @@ android {
+ }
+ 
+ dependencies {
+-    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '23.0.0')}"
++    implementation "androidx.appcompat:appcompat:1.0.0"
+     implementation "com.facebook.react:react-native:+"
+ }
+\ No newline at end of file
+diff --git a/android/gradle.properties b/android/gradle.properties
+new file mode 100644
+index 0000000..5465fec
+--- /dev/null
++++ b/android/gradle.properties
+@@ -0,0 +1,2 @@
++android.enableJetifier=true
++android.useAndroidX=true
+\ No newline at end of file

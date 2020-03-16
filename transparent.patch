@@ -1,0 +1,100 @@
+From 84b8bf3345c09bf449bb2744db56a015929a01a2 Mon Sep 17 00:00:00 2001
+From: arsenyzp <arsenyzp@gmail.com>
+Date: Wed, 31 Jan 2018 23:43:42 +0300
+Subject: [PATCH 1/2] transparent signature backgraund on Android
+
+---
+ SignatureCapture.js                                       | 2 +-
+ .../com/rssignaturecapture/RSSignatureCaptureView.java    | 4 ++--
+ .../rssignaturecapture/RSSignatureCaptureViewManager.java | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/SignatureCapture.js b/SignatureCapture.js
+index 4a903f9..cdd21df 100644
+--- a/SignatureCapture.js
++++ b/SignatureCapture.js
+@@ -101,7 +101,7 @@ SignatureCapture.propTypes = {
+     minStrokeWidth: PropTypes.number,
+     maxStrokeWidth: PropTypes.number,
+     strokeColor: PropTypes.string,
+-    backgroundColor: PropTypes.string
++    placeColor: PropTypes.string
+ };
+ 
+ var RSSignatureView = requireNativeComponent('RSSignatureView', SignatureCapture, {
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureView.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureView.java
+index 6d7c255..4fc3b80 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureView.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureView.java
+@@ -80,7 +80,7 @@ public RSSignatureCaptureView(Context context, SignatureCallback callback) {
+ 		clear();
+ 
+ 		// set the bg color as white
+-		this.setBackgroundColor(Color.WHITE);
++		this.setBackgroundColor(Color.TRANSPARENT);
+ 
+ 		// width and height should cover the screen
+ 		this.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+@@ -97,7 +97,7 @@ public Bitmap getSignature() {
+ 
+ 		// set the signature bitmap
+ 		if (signatureBitmap == null) {
+-			signatureBitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Bitmap.Config.RGB_565);
++			signatureBitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Bitmap.Config.ARGB_8888);
+ 		}
+ 
+ 		// important for saving signature
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
+index 0dea914..85143b0 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
+@@ -25,7 +25,7 @@
+ 	public static final String PROPS_MIN_STROKE_WIDTH="minStrokeWidth";
+ 	public static final String PROPS_MAX_STROKE_WIDTH="maxStrokeWidth";
+ 	public static final String PROPS_STROKE_COLOR="strokeColor";
+-	public static final String PROPS_BACKGROUND_COLOR="backgroundColor";
++	public static final String PROPS_BACKGROUND_COLOR="placeColor";
+ 
+ 	public static final int COMMAND_SAVE_IMAGE = 1;
+ 	public static final int COMMAND_RESET_IMAGE = 2;
+@@ -102,9 +102,9 @@ public void setPropsStrokeColor(RSSignatureCaptureMainView view, @Nullable Strin
+ 	@ReactProp(name = PROPS_BACKGROUND_COLOR)
+ 	public void setPropsBackgroundColor(RSSignatureCaptureMainView view, @Nullable String color) {
+ 		Log.d("backgroundColor:",  ""+color);
+-		if(view!=null){
+-			view.getSignatureView().setBackgroundColor(Color.parseColor(color));
+-		}
++//		if(view!=null){
++//			view.getSignatureView().setBackgroundColor(Color.parseColor(color));
++//		}
+ 	}
+ 
+ 	@Override
+
+From 158f583b9bb500414166e0f33fd5b4b8de5d54ba Mon Sep 17 00:00:00 2001
+From: Arseniy Harlanow <arsenyzp@gmail.com>
+Date: Thu, 2 Aug 2018 21:24:59 +0300
+Subject: [PATCH 2/2] Transparent signature background on Android
+
+added feature - transparent image background on Android
+---
+ .../rssignaturecapture/RSSignatureCaptureViewManager.java   | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
+index 85143b0..f355bc1 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureViewManager.java
+@@ -102,9 +102,9 @@ public void setPropsStrokeColor(RSSignatureCaptureMainView view, @Nullable Strin
+ 	@ReactProp(name = PROPS_BACKGROUND_COLOR)
+ 	public void setPropsBackgroundColor(RSSignatureCaptureMainView view, @Nullable String color) {
+ 		Log.d("backgroundColor:",  ""+color);
+-//		if(view!=null){
+-//			view.getSignatureView().setBackgroundColor(Color.parseColor(color));
+-//		}
++		if(view!=null && color!=null){
++			view.getSignatureView().setBackgroundColor(Color.parseColor(color));
++		}
+ 	}
+ 
+ 	@Override

@@ -1,0 +1,91 @@
+From 1d856ec243999d2cec4c00f10c050e6d014c2475 Mon Sep 17 00:00:00 2001
+From: David Buss <kotarcreative@gmail.com>
+Date: Mon, 8 Jul 2019 21:11:35 +0200
+Subject: [PATCH 1/4] Make signature file name unique to allow for multiple
+ signatures to be saved.
+
+---
+ .../com/rssignaturecapture/RSSignatureCaptureMainView.java | 7 +++++--
+ ios/RSSignatureView.m                                      | 6 +++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+index 3dff8bc..b9ccd6d 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+@@ -149,8 +149,11 @@ final void saveImage() {
+       myDir.mkdirs();
+     }
+ 
+-    // set the file name of your choice
+-    String fname = "signature.png";
++    // set the file name of your choice and make it unique so that
++    // you can handle multiple signatures at once
++    UUID uuid = UUID.randomUUID();
++    String uuidStr = uuid.toString();
++    String fname = uuidStr + "-signature.png";
+ 
+     // in our case, we delete the previous file, you can remove this
+     File file = new File(myDir, fname);
+diff --git a/ios/RSSignatureView.m b/ios/RSSignatureView.m
+index 1c63ab9..2588e5e 100644
+--- a/ios/RSSignatureView.m
++++ b/ios/RSSignatureView.m
+@@ -195,7 +195,11 @@ -(void) saveImage {
+ 
+ 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+ 	NSString *documentsDirectory = [paths firstObject];
+-	NSString *tempPath = [documentsDirectory stringByAppendingFormat:@"/signature.png"];
++	// set the file name of your choice and make it unique so that
++    // you can handle multiple signatures at once
++	NSString *uuid = [[NSUUID UUID] UUIDString];
++	NSString *fname = [uuid stringByAppendingString:"-signature.png"];
++	NSString *tempPath = [documentsDirectory stringByAppendingFormat:@"/%@", fname];
+ 
+ 	//remove if file already exists
+ 	if ([[NSFileManager defaultManager] fileExistsAtPath:tempPath]) {
+
+From 3fdf9f471891943a34e74469fa4362e9ec1deb34 Mon Sep 17 00:00:00 2001
+From: David Buss <kotarcreative@gmail.com>
+Date: Mon, 8 Jul 2019 21:35:22 +0200
+Subject: [PATCH 2/4] Fix syntax error in IOS.
+
+---
+ ios/RSSignatureView.m | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ios/RSSignatureView.m b/ios/RSSignatureView.m
+index 2588e5e..edaf0ce 100644
+--- a/ios/RSSignatureView.m
++++ b/ios/RSSignatureView.m
+@@ -198,7 +198,7 @@ -(void) saveImage {
+ 	// set the file name of your choice and make it unique so that
+     // you can handle multiple signatures at once
+ 	NSString *uuid = [[NSUUID UUID] UUIDString];
+-	NSString *fname = [uuid stringByAppendingString:"-signature.png"];
++	NSString *fname = [uuid stringByAppendingString:@"-signature.png"];
+ 	NSString *tempPath = [documentsDirectory stringByAppendingFormat:@"/%@", fname];
+ 
+ 	//remove if file already exists
+
+From 03b1302ad4582ed8716c9b28a745353b2eba8cd4 Mon Sep 17 00:00:00 2001
+From: David Buss <kotarcreative@gmail.com>
+Date: Mon, 8 Jul 2019 22:10:33 +0200
+Subject: [PATCH 3/4] Update version number.
+
+---
+ .../java/com/rssignaturecapture/RSSignatureCaptureMainView.java  | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+index b9ccd6d..5e1bb50 100644
+--- a/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
++++ b/android/src/main/java/com/rssignaturecapture/RSSignatureCaptureMainView.java
+@@ -28,6 +28,7 @@
+ import android.app.Activity;
+ import android.content.pm.ActivityInfo;
+ import java.lang.Boolean;
++import java.util.UUID;
+ 
+ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickListener,RSSignatureCaptureView.SignatureCallback {
+   LinearLayout buttonsLayout;
